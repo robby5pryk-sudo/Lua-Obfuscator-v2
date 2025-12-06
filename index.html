@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lua Obfuscator - Weather & Effects</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #111827;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Main wrapper */
+.wrapper {
+    background: rgba(31,41,55,0.95);
+    padding: 25px;
+    width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    margin: 30px auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* Rainbow header */
+h1 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 32px;
+    transition: color 0.1s;
+}
+
+/* Links */
+a {
+    color: #10b981;
+    text-decoration: none;
+    margin-right: 15px;
+}
+a:hover { text-decoration: underline; }
+
+/* Textareas and buttons */
+textarea {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    resize: vertical;
+    background: #111827;
+    color: #fff;
+}
+.btn {
+    width: 100%;
+    background: #2563eb;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+}
+.btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+#copyBtn { background: #10b981; }
+#copyBtn:hover { background: #059669; }
+
+/* Broadcast */
+#broadcast {
+    margin-top: 20px;
+    background:#1e40af;
+    padding:10px;
+    border-radius:8px;
+    height:120px;
+    overflow-y:auto;
+}
+#broadcastInput {
+    width: 100%;
+    margin-top:5px;
+    padding:8px;
+    border-radius:6px;
+    border:none;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: #111827;
+    padding: 15px;
+    box-shadow: -5px 0 10px rgba(0,0,0,0.4);
+    overflow-y: auto;
+}
+.sidebar h3 { text-align:center; margin-bottom:10px; }
+.sidebar button, .sidebar input {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Weather elements */
+.weather {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* Disco overlay */
+#disco {
+    position: fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:5;
+    mix-blend-mode: screen;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h1 id="rainbowText">Lua Obfuscator 🌈</h1>
+
+    <div style="text-align:center; margin-bottom:15px;">
+        <a href="https://www.youtube.com/@BibzS4mpwats" target="_blank">YouTube</a>
+        <a href="https://www.saweria.co/BibzS4mp" target="_blank">Saweria</a>
+    </div>
+
+    <textarea id="input" placeholder="Paste your Lua script here..."></textarea>
+
+    <div class="options">
+        <label><input type="checkbox" id="stripComments" checked> Strip Comments</label>
+        <label><input type="checkbox" id="minify" checked> Minify Code</label>
+        <label><input type="checkbox" id="renameLocals" checked> Rename Locals</label>
+    </div>
+
+    <button class="btn" id="obfBtn">Obfuscate Script</button>
+
+    <textarea id="output" placeholder="Result will appear here..." readonly></textarea>
+
+    <button class="btn" id="copyBtn">Copy Result</button>
+
+    <h3 style="margin-top:20px;">Broadcast Messages</h3>
+    <div id="broadcast"></div>
+    <input type="text" id="broadcastInput" placeholder="Type message as admin and press Enter"/>
+</div>
+
+<!-- Sidebar: Weather + Link Rain -->
+<div class="sidebar">
+    <h3>Weather & Effects</h3>
+    <button onclick="setWeather('rain')">Hujan</button>
+    <button onclick="setWeather('meteor')">Meteor</button>
+    <button onclick="setWeather('snow')">Salju</button>
+    <button onclick="setWeather('disco')">Disco</button>
+    <button onclick="setWeather('none')">Matikan</button>
+
+    <h3 style="margin-top:20px;">Hujan Link</h3>
+    <input type="text" id="linkInput" placeholder="Masukkan link dan Enter"/>
+</div>
+
+<div id="disco"></div>
+
+<script>
+// -------- Lua Obfuscator --------
+function obfuscate(code, stripComments, minify, renameLocals){
+    if(!code) return "";
+    let strings = [], idx=0;
+    code = code.replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,m=>{ strings.push(m); return "__STR_"+idx+++"__"; });
+    if(stripComments){
+        code = code.replace(/--\[\[[\s\S]*?\]\]/g,"");
+        code = code.replace(/--[^\n]*/g,"");
+    }
+    if(renameLocals){
+        let rename={},count=0,pattern=/local\s+([A-Za-z_][A-Za-z0-9_]*)/g,m;
+        while((m=pattern.exec(code))!==null){ let n=m[1]; if(!rename[n]) rename[n]="_L"+(count++);}
+        for(const oldName in rename){ code=code.replace(new RegExp("\\b"+oldName+"\\b","g"), rename[oldName]); }
+    }
+    if(minify){ code=code.replace(/\n+/g," ").replace(/\s{2,}/g," ").replace(/\s*([=()+\-*/,])\s*/g,"$1"); }
+    return code.replace(/__STR_(\d+)__/g,(_,i)=>strings[i]);
+}
+document.getElementById("obfBtn").onclick = ()=>{
+    let code=document.getElementById("input").value;
+    let strip=document.getElementById("stripComments").checked;
+    let min=document.getElementById("minify").checked;
+    let rename=document.getElementById("renameLocals").checked;
+    document.getElementById("output").value = obfuscate(code,strip,min,rename);
+};
+document.getElementById("copyBtn").onclick = ()=>{
+    let out=document.getElementById("output");
+    out.select();
+    document.execCommand("copy");
+    alert("Copied!");
+};
+
+// -------- Broadcast System --------
+const broadcastDiv = document.getElementById("broadcast");
+const broadcastInput = document.getElementById("broadcastInput");
+function loadBroadcast(){
+    let msgs = JSON.parse(localStorage.getItem("broadcastMsgs")||"[]");
+    broadcastDiv.innerHTML="";
+    msgs.forEach(m=>{
+        let p=document.createElement("p");
+        p.textContent = m;
+        broadcastDiv.appendChild(p);
+    });
+}
+broadcastInput.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){
+        let msg=broadcastInput.value.trim();
+        if(!msg) return;
+        let msgs=JSON.parse(localStorage.getItem("broadcastMsgs")||"[]");
+        msgs.push("Afreldo: "+msg);
+        localStorage.setItem("broadcastMsgs", JSON.stringify(msgs));
+        broadcastInput.value="";
+        loadBroadcast();
+    }
+});
+setInterval(loadBroadcast,2000);
+loadBroadcast();
+
+// -------- Rainbow Text --------
+const rainbowText = document.getElementById("rainbowText");
+let hue=0;
+function animateRainbow(){ hue=(hue+1)%360; rainbowText.style.color=`hsl(${hue},100%,50%)`; requestAnimationFrame(animateRainbow);}
+animateRainbow();
+
+// -------- Weather System --------
+let currentWeather = null;
+let weatherInterval;
+const discoDiv = document.getElementById("disco");
+
+function clearWeather(){
+    if(weatherInterval) clearInterval(weatherInterval);
+    document.querySelectorAll('.weather').forEach(e=>e.remove());
+    discoDiv.style.backgroundColor='transparent';
+}
+
+function setWeather(type){
+    clearWeather();
+    currentWeather=type;
+
+    if(type==='rain'){
+        weatherInterval = setInterval(()=>{
+            const drop = document.createElement('div');
+            drop.className='weather';
+            drop.style.height='10px';
+            drop.style.width='2px';
+            drop.style.background='aqua';
+            drop.style.left=Math.random()*window.innerWidth+'px';
+            drop.style.top='-20px';
+            document.body.appendChild(drop);
+            let speed=5+Math.random()*5, y=-20;
+            function fall(){ y+=speed; drop.style.top=y+'px'; if(y<window.innerHeight+20) requestAnimationFrame(fall); else drop.remove(); }
+            fall();
+        }, 50);
+    }
+
+    if(type==='meteor'){
+        weatherInterval = setInterval(()=>{
+            const meteor = document.createElement('div');
+            meteor.className='weather';
+            meteor.style.height='15px';
+            meteor.style.width='3px';
+            meteor.style.background='orange';
+            meteor.style.left=Math.random()*window.innerWidth+'px';
+            meteor.style.top='-20px';
+            document.body.appendChild(meteor);
+            let x = parseFloat(meteor.style.left), y=-20;
+            let speed = 7+Math.random()*3;
+            function fall(){ y+=speed; x+=speed*Math.tan(15*Math.PI/180); meteor.style.top=y+'px'; meteor.style.left=x+'px'; if(y<window.innerHeight+50) requestAnimationFrame(fall); else meteor.remove(); }
+            fall();
+        }, 500);
+    }
+
+    if(type==='snow'){
+        weatherInterval = setInterval(()=>{
+            const flake = document.createElement('div');
+            flake.className='weather';
+            flake.style.height='8px';
+            flake.style.width='8px';
+            flake.style.background='white';
+            flake.style.borderRadius='50%';
+            flake.style.left=Math.random()*window.innerWidth+'px';
+            flake.style.top='-10px';
+            document.body.appendChild(flake);
+            let y=-10, speed=1+Math.random()*2, drift=(Math.random()-0.5)*2;
+            function fall(){ y+=speed; flake.style.top=y+'px'; flake.style.left=parseFloat(flake.style.left)+drift+'px'; if(y<window.innerHeight+10) requestAnimationFrame(fall); else flake.remove(); }
+            fall();
+        }, 100);
+    }
+
+    if(type==='disco'){
+        let start = Date.now();
+        function discoAnimate(){ 
+            if(currentWeather!=='disco') return; 
+            let now = Date.now();
+            if(now-start>60000) { discoDiv.style.backgroundColor='transparent'; return; }
+            discoDiv.style.backgroundColor = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},0.3)`; 
+            setTimeout(discoAnimate,500);
+        }
+        discoAnimate();
+    }
+}
+
+// -------- Hujan Link --------
+const linkInput = document.getElementById("linkInput");
+linkInput.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){
+        let link = linkInput.value.trim();
+        if(!link) return;
+        localStorage.setItem("linkRainMsg", link);
+        linkInput.value="";
+        showLinkRain(link);
+    }
+});
+function showLinkRain(msg){
+    const div = document.createElement("div");
+    div.className="linkMsg";
+    div.style.position="fixed";
+    div.style.top=Math.random()*80+"%";
+    div.style.left=Math.random()*80+"%";
+    div.style.background="rgba(0,0,0,0.6)";
+    div.style.padding="10px 15px";
+    div.style.borderRadius="8px";
+    div.style.fontSize="16px";
+    div.style.color="#fff";
+    div.style.zIndex=20;
+    div.textContent = msg;
+    document.body.appendChild(div);
+    setTimeout(()=>div.remove(),20000);
+}
+window.addEventListener("storage",e=>{
+    if(e.key==="linkRainMsg") showLinkRain(e.newValue);
+});
+</script>
+
+</body>
+</html>
+
+
