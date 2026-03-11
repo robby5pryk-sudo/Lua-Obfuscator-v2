@@ -3,7 +3,7 @@
 $db_host = "localhost";
 $db_user = "root";
 $db_pass = ""; 
-$db_name = "server_samp"; // Nama database kamu
+$db_name = "web"; // Nama database kamu
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
