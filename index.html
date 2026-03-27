@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>100 Alasan GERI Itu Gay ✨ | Fun Facts + Mini Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Comic Neue', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        /* rainbow animated border */
+        @keyframes rainbow {
+            0% { border-color: #ff0000; }
+            17% { border-color: #ff8800; }
+            33% { border-color: #ffff00; }
+            50% { border-color: #00ff00; }
+            67% { border-color: #0088ff; }
+            83% { border-color: #ff00ff; }
+            100% { border-color: #ff0000; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header judul besar */
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #FFD700, #FF69B4, #FF1493, #FFD700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 3s infinite;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .sub {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            background: rgba(0,0,0,0.3);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(5px);
+            margin-top: 10px;
+        }
+
+        /* dua kolom: kiri daftar alasan, kanan game */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* alasan list - scrollable */
+        .reasons-box {
+            flex: 2;
+            min-width: 280px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .reasons-box:hover {
+            border-color: #ff69b4;
+            box-shadow: 0 20px 40px rgba(255,105,180,0.2);
+        }
+
+        .reasons-header {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #f5af19, #f12711);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .reason-list {
+            max-height: 550px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .reason-item {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 12px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+            font-size: 1rem;
+            border-left: 5px solid #ff69b4;
+            backdrop-filter: blur(5px);
+        }
+
+        .reason-item:hover {
+            transform: translateX(8px);
+            background: rgba(255,105,180,0.3);
+        }
+
+        .reason-number {
+            font-weight: bold;
+            background: #ff69b4;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            box-shadow: 0 0 8px #ff69b4;
+        }
+
+        .reason-text {
+            flex: 1;
+        }
+
+        /* area game */
+        .game-box {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(145deg, #2b1e3a, #1a0f2a);
+            border-radius: 35px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #ff99cc;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .game-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .game-title i {
+            font-size: 2rem;
+            animation: wiggle 1s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        .game-stats {
+            background: rgba(0,0,0,0.5);
+            border-radius: 40px;
+            padding: 10px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .click-area {
+            background: radial-gradient(circle, #ff66cc, #ff3399);
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.1s linear;
+            box-shadow: 0 0 20px #ff69b4;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0 #b3005e;
+            user-select: none;
+        }
+
+        .click-area:active {
+            transform: scale(0.95);
+            background: radial-gradient(circle, #ff44aa, #ff1177);
+        }
+
+        .gay-meter {
+            width: 100%;
+            height: 30px;
+            background: #4a2a5e;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .gay-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff1493, #ff69b4, #ffb6c1);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        button {
+            background: #ff69b4;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #ff3388;
+            box-shadow: 0 5px 15px rgba(255,105,180,0.5);
+        }
+
+        .achievement {
+            margin-top: 15px;
+            background: rgba(255,215,0,0.2);
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 0.85rem;
+            border: 1px solid gold;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #3a2a4a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff69b4;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 800px) {
+            h1 { font-size: 2.4rem; }
+            .reason-item { font-size: 0.85rem; }
+            .click-area { width: 130px; height: 130px; font-size: 1.3rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="title-section">
+        <h1>🏳️‍🌈 100 ALASAN GERI ITU GAY 🏳️‍🌈</h1>
+        <div class="sub"><i class="fas fa-heart-broken"></i> Fakta Ilmiah, Terbukti & Tidak Terbantahkan <i class="fas fa-rainbow"></i></div>
+    </div>
+
+    <div class="two-columns">
+        <!-- Kolom kiri: 100 alasan lucu + narsis -->
+        <div class="reasons-box">
+            <div class="reasons-header">
+                <i class="fas fa-list-ul"></i> 100 Alasan Kenapa GERI <span style="color:#ff69b4">🌈 GAY</span>
+            </div>
+            <div class="reason-list" id="reasonList">
+                <!-- akan diisi javascript 100 alasan -->
+                <div style="text-align:center; padding:20px;">Memuat 100 alasan fabulous...</div>
+            </div>
+        </div>
+
+        <!-- Kolom kanan: MINI GAME seru bertema GERI -->
+        <div class="game-box">
+            <div class="game-title">
+                <i class="fas fa-gamepad"></i> GERI METER <i class="fas fa-rainbow"></i>
+            </div>
+            <p>Klik tombol <strong style="color:#ffb3ff;">"GERI MODE"</strong> sebanyak-banyaknya! <br> Buktikan seberapa <span style="color:#ff99ff;">GAY</span> dirimu untuk GERI!</p>
+            
+            <div class="game-stats">
+                <span><i class="fas fa-hand-peace"></i> Klik: <span id="clickCount">0</span></span>
+                <span><i class="fas fa-chart-line"></i> Level Gay: <span id="gayLevel">0</span>%</span>
+            </div>
+            
+            <div class="click-area" id="clickButton">
+                <i class="fas fa-mars-double"></i> GERI!
+            </div>
+            
+            <div class="gay-meter">
+                <div class="gay-fill" id="gayFill">0%</div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="resetGame"><i class="fas fa-undo-alt"></i> Reset Gayness</button>
+                <button id="superBoost"><i class="fas fa-bolt"></i> SUPER GERI</button>
+            </div>
+            
+            <div class="achievement" id="achievementMsg">
+                ✨ Klik 10x : Mendapatkan sayap pelangi! ✨
+            </div>
+            <div style="margin-top: 15px; font-size: 13px; background: #00000055; border-radius: 20px; padding: 8px;">
+                <i class="fas fa-music"></i> Setiap klik membuktikan GERI makin gay~
+            </div>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-copyright"></i> 100 Alasan dibuat dengan cinta pelangi | Tidak ada GERI yang tersakiti dalam pembuatan ini 🌈
+    </footer>
+</div>
+
+<script>
+    // ======================= 100 ALASAN KREATIF =======================
+    const reasons = [
+        "Cara jalannya senggol bacok khas diskotik",
+        "Pas lihat cowok ganteng langsung lirik berkali-kali",
+        "IG-nya follow 1000 akun cowok cool",
+        "Setiap hari pakai baju warna pelangi",
+        "Suka banget nonton drama BL sampai nangis",
+        "Sumpah pernah bilang 'I'm not gay, but...' terus lanjut",
+        "Tersenyum manis ke satpam mall",
+        "Koleksi foto K-Pop cowok di hp 5000++",
+        "Tiap kali ke gym selalu lihat pria",
+        "Mempunyai nickname 'GERI the fabulous'",
+        "Gaya rambut selalu wavy dan wangi",
+        "Pas joget gaya gay banget sampai viral",
+        "Kata temannya 'geriii lo gay' dia jawab iya dong",
+        "Stiker WA bergambar unicorn dan love love",
+        "Lagu favoritnya 'I'm Coming Out'",
+        "Menggunakan emoji 🏳️‍🌈 di bio",
+        "Setiap nongkrong pilih tempat cowok ganteng",
+        "Pas disuruh pilih antara cewek atau cowok, milih cowok",
+        "Mempunyai 50 baju berwarna pink dan ungu",
+        "Ketika nonton film, perhatiannya ke aktor bukannya aktris",
+        "Suka banget dance tiktok lagu-lagu boyband",
+        "Tertarik dengan fashion stylist pria",
+        "Pernah bilang 'cowok itu lebih estetik'",
+            "Mimpi basah tentang artis cowok",
+        "Kata ahlinya aura gay terdeteksi dari jarak 1 km",
+        "Mengoleksi parfum wangi maskulin semua",
+        "Pas main game pilih karakter cowok terus",
+        "Gaya bicara ceplas-ceplos penuh drama",
+        "Status WA quote 'Love is love'",
+        "Tiap selfie pakai filter hati-hati",
+        "Joget dangdut dengan gerakan sensual",
+        "Minta tolong cowok buat beliin minum",
+        "Kalau lagi senang suka teriak 'YAAS QUEEN'",
+        "Mempunyai bantal peluk berbentuk otot laki",
+        "Langganan Netflix khusus film LGBT",
+        "Posting foto sunset bertema 'rainbow vibes'",
+        "Setiap bangun tidur langsung cek IG cowok",
+        "Menggunakan kata darling dan honey",
+        "Suka banget dance cover girl group",
+        "Tidak pernah merasa tertarik dengan perempuan",
+        "Kalau ke pantai lihat cowok bukannya ombak",
+        "Ketika ditanya jenis kelamin ideal, jawab 'laki-laki'",
+        "Selalu mengikuti trend fashion gay",
+        "Pernah nembak teman pria dan diterima",
+        "Mempunyai koleksi kaos dengan tulisan 'GAY PRIDE'",
+        "Nama hewan peliharaan: 'Mr. Fab'",
+        "Tiap lewat cowok ganteng pasti tepuk jidat",
+        "Suka sekali menonton RuPaul's Drag Race",
+        "Merasa bangga jadi gay",
+        "Motto hidup: 'Be Gay, Do Crime'",
+        "Setiap foto selalu pose sassy",
+        "Mengikuti komunitas LGBTQ+",
+        "Pernah nangis karena cowok yang ditaksir punya pacar",
+        "Lebih suka nonton konser boyband daripada girlband",
+        "Menghias kamar dengan lampu pelangi",
+        "Mempunyai sahabat perempuan semua",
+        "Gaya tertawa yang khas gay",
+        "Kalau ketemu cowok, pipinya merona",
+        "Hobi foto-foto di spot pelangi",
+        "Tidak suka olahraga yang terlalu macho tapi suka gymnastic",
+        "Pas karaoke selalu pilih lagu-lagu dari diva pop",
+        "Jago banget makeup walau cowok",
+        "Pernah jadi model fashion show dengan tema pride",
+        "Mempunyai 100+ stiker bertema love",
+        "Kalau malam minggu lebih suka hangout dengan teman gay",
+        "Mengagumi artis cowok dari kecil",
+        "Suka nonton anime shounen-ai",
+        "Merasa tersentuh dengan perjuangan hak LGBT",
+        "Tidak pernah tertarik pada wanita",
+        "Memakai gelang pride",
+        "Selalu ikut festival pride setiap tahun",
+        "Mempunyai playlist lagu-lagu dari queer artist",
+        "Gaya ngomong sering pakai gesture tangan lentik",
+        "Suka sekali belanja di toko yang jual merch LGBT",
+        "Mengoleksi action figure karakter cowok handsome",
+        "Pas rapat online background pelangi",
+        "Teman-temannya 80% adalah LGBTQ",
+        "Pernah nulis puisi cinta untuk cowok",
+        "Kalau tidur mimpi nikah sesama jenis",
+        "Tidak pernah merasa cocok dengan stereotip maskulin",
+        "Menyukai bunga mawar merah",
+        "Bisa menyebutkan semua warna pelangi dalam bahasa inggris",
+        "Tiap beli merchandise selalu warna pink",
+        "Mempunyai akun tiktok khusus konten gay",
+        "Pernah cosplay karakter gay favorit",
+        "Suka banget nonton drama Thailand (BL)",
+        "Selalu membela hak-hak LGBTQ+",
+        "Mempunyai impian untuk punya keluarga bahagia dengan pasangan pria",
+        "Kalau lagi marah malah tambah fabulous",
+        "Pas foto selalu pake love love gesture",
+        "Menggunakan aplikasi kencan khusus pria",
+        "Membuat konten edukasi tentang gay",
+        "Pernah jatuh cinta pada pandangan pertama ke cowok",
+        "Kata orang tuanya 'dari kecil sudah keliatan'",
+        "Suka menari ballet",
+        "Memiliki gaya berjalan model catwalk",
+        "Suka memakai aksesoris bulu",
+        "Tidak pernah menyukai olahraga sepak bola",
+        "Lebih suka diskusi tentang fashion daripada otomotif",
+        "Merasa bahagia setelah menerima identitas diri",
+        "Dan yang ke-100: Karena GERI sendiri mengakui bahwa dirinya GAY dan bangga! 🏳️‍🌈"
+    ];
+
+    // Pastikan ada 100 alasan (jika kurang tambahkan duplicate kreatif)
+    while(reasons.length < 100) {
+        reasons.push("Alasan tambahan: GERI terlalu stylish untuk dilawan 🌈✨");
+    }
+    if(reasons.length > 100) reasons.length = 100;
+    
+    // render 100 alasan ke DOM
+    const reasonContainer = document.getElementById('reasonList');
+    function renderReasons() {
+        reasonContainer.innerHTML = '';
+        reasons.forEach((text, idx) => {
+            const div = document.createElement('div');
+            div.className = 'reason-item';
+            div.innerHTML = `
+                <div class="reason-number">${idx+1}</div>
+                <div class="reason-text">${text}</div>
+                <i class="fas fa-rainbow" style="opacity:0.7"></i>
+            `;
+            reasonContainer.appendChild(div);
+        });
+    }
+    renderReasons();
+    
+    // ======================= MINI GAME =======================
+    let clickTotal = 0;
+    const maxClicksForFull = 69; // 69 kali full gay (biar lucu)
+    const clickCountSpan = document.getElementById('clickCount');
+    const gayLevelSpan = document.getElementById('gayLevel');
+    const gayFillDiv = document.getElementById('gayFill');
+    const clickBtn = document.getElementById('clickButton');
+    const resetBtn = document.getElementById('resetGame');
+    const superBtn = document.getElementById('superBoost');
+    const achievementMsg = document.getElementById('achievementMsg');
+    
+    function updateGameUI() {
+        let percent = Math.min(100, Math.floor((clickTotal / maxClicksForFull) * 100));
+        if (clickTotal >= maxClicksForFull) percent = 100;
+        gayLevelSpan.innerText = percent;
+        gayFillDiv.style.width = `${percent}%`;
+        gayFillDiv.innerText = `${percent}%`;
+        clickCountSpan.innerText = clickTotal;
+        
+        // achievement message dinamis
+        if (clickTotal >= 69) {
+            achievementMsg.innerHTML = "🏆🏳️‍🌈 LEGEND: GERI 100% GAY! 🌈✨ Kamu telah membuka semua ke-fabulous-an! 🏆";
+        } else if (clickTotal >= 50) {
+            achievementMsg.innerHTML = "🔥🔥 LEVEL DEWA: GERI semakin tak terbantahkan gay! Sebarkan sayap pelangi! 🔥🔥";
+        } else if (clickTotal >= 30) {
+            achievementMsg.innerHTML = "⭐ Wah! GERI mulai menunjukkan tarian pelangi. 30 klik bukti gay luar biasa! ⭐";
+        } else if (clickTotal >= 15) {
+            achievementMsg.innerHTML = "🌈 Mulai terlihat auranya! Semakin banyak klik semakin gay! Klik terus! 🌈";
+        } else if (clickTotal >= 5) {
+            achievementMsg.innerHTML = "💖 Lumayan! GERI makin bersinar, buktikan 100% gay dengan klik lebih banyak! 💖";
+        } else {
+            achievementMsg.innerHTML = "✨ Klik tombol GERI! setiap klik menambah 1 alasan baru kenapa GERI gay ✨";
+        }
+        
+        // efek ekstra pada judul jika full
+        if (clickTotal >= maxClicksForFull) {
+            document.querySelector('.game-title').style.animation = 'wiggle 0.5s infinite';
+        } else {
+            document.querySelector('.game-title').style.animation = '';
+        }
+    }
+    
+    function addClicks(amount) {
+        let prev = clickTotal;
+        clickTotal += amount;
+        if (clickTotal > maxClicksForFull + 20) clickTotal = maxClicksForFull + 20; // batas maksimal lucu
+        updateGameUI();
+        
+        // efek suara visual: getar kecil tombol (haptic)
+        clickBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => { clickBtn.style.transform = ''; }, 100);
+        
+        // animasi rainbow pada alasan random saat klik
+        if (amount > 0 && reasonContainer.children[Math.floor(Math.random() * reasons.length)]) {
+            const randomReason = reasonContainer.children[Math.floor(Math.random() * reasons.length)];
+            randomReason.style.transition = '0.2s';
+            randomReason.style.backgroundColor = 'rgba(255,105,180,0.8)';
+            setTimeout(() => {
+                randomReason.style.backgroundColor = '';
+            }, 300);
+        }
+        
+        // jika mencapai 69 kali muncul confetti effect sederhana
+        if (prev < maxClicksForFull && clickTotal >= maxClicksForFull) {
+            createConfetti();
+            achievementMsg.innerHTML = "🎉🎉 SELAMAT! GERI RESMI MENJADI LEGENDA GAY versi 100 alasan! 🎉🎉";
+        }
+    }
+    
+    function createConfetti() {
+        // confetti sederhana dengan javascript DOM
+        for (let i = 0; i < 60; i++) {
+            const conf = document.createElement('div');
+            conf.innerHTML = ['🌈','✨','💖','🏳️‍🌈','🌟','💕','🎊'][Math.floor(Math.random()*7)];
+            conf.style.position = 'fixed';
+            conf.style.left = Math.random() * window.innerWidth + 'px';
+            conf.style.top = '-20px';
+            conf.style.fontSize = (20 + Math.random() * 25) + 'px';
+            conf.style.pointerEvents = 'none';
+            conf.style.zIndex = '9999';
+            conf.style.opacity = '1';
+            conf.style.transition = 'all 2s ease-out';
+            document.body.appendChild(conf);
+            let targetTop = window.innerHeight + 50;
+            setTimeout(() => {
+                conf.style.transform = `translateY(${targetTop}px) rotate(${Math.random() * 360}deg)`;
+                conf.style.opacity = '0';
+            }, 10);
+            setTimeout(() => conf.remove(), 2100);
+        }
+    }
+    
+    clickBtn.addEventListener('click', () => {
+        addClicks(1);
+        // tambahkan efek suara "pop" tidak pakai audio biar ringan
+    });
+    
+    resetBtn.addEventListener('click', () => {
+        clickTotal = 0;
+        updateGameUI();
+        achievementMsg.innerHTML = "✨ Reset! Mulai lagi buktikan bahwa GERI itu gay dengan klik ✨";
+        createConfetti(); // confetti kecil reset
+    });
+    
+    superBtn.addEventListener('click', () => {
+        addClicks(5);
+        const floating = document.createElement('div');
+        floating.innerText = "+5 GAY POWER!";
+        floating.style.position = 'fixed';
+        floating.style.left = (superBtn.getBoundingClientRect().left + 30) + 'px';
+        floating.style.top = (superBtn.getBoundingClientRect().top - 20) + 'px';
+        floating.style.color = '#ffb6c1';
+        floating.style.fontWeight = 'bold';
+        floating.style.zIndex = '999';
+        floating.style.animation = 'floatUp 0.8s forwards';
+        document.body.appendChild(floating);
+        setTimeout(() => floating.remove(), 800);
+    });
+    
+    // tambahan style animasi float
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // inisialisasi
+    updateGameUI();
+    
+    // efek tambahan rainbow pada alasan pertama saat load
+    setTimeout(() => {
+        if(reasonContainer.children[0]) {
+            reasonContainer.children[0].style.borderLeft = '5px solid gold';
+        }
+    }, 500);
+</script>
+</body>
+</html>
